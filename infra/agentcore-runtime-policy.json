@@ -1,0 +1,51 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "ReadStorageConfiguration",
+      "Effect": "Allow",
+      "Action": "ssm:GetParameter",
+      "Resource": "arn:aws:ssm:us-east-1:*:parameter/civic-canary/storage-config"
+    },
+    {
+      "Sid": "ReadAndWriteCivicCanaryTables",
+      "Effect": "Allow",
+      "Action": [
+        "dynamodb:GetItem",
+        "dynamodb:PutItem",
+        "dynamodb:Scan"
+      ],
+      "Resource": "arn:aws:dynamodb:us-east-1:*:table/CivicCanaryMvp-*"
+    },
+    {
+      "Sid": "ReadAndWriteCivicCanaryEvidence",
+      "Effect": "Allow",
+      "Action": [
+        "s3:GetObject",
+        "s3:PutObject"
+      ],
+      "Resource": "arn:aws:s3:::civiccanarymvp-evidence*/*"
+    },
+    {
+      "Sid": "UseManagedBrowser",
+      "Effect": "Allow",
+      "Action": [
+        "bedrock-agentcore:GetBrowser",
+        "bedrock-agentcore:StartBrowserSession",
+        "bedrock-agentcore:GetBrowserSession",
+        "bedrock-agentcore:StopBrowserSession",
+        "bedrock-agentcore:ConnectBrowserAutomationStream"
+      ],
+      "Resource": "arn:aws:bedrock-agentcore:us-east-1:*:browser/*"
+    },
+    {
+      "Sid": "InvokeConfiguredBedrockModel",
+      "Effect": "Allow",
+      "Action": [
+        "bedrock:InvokeModel",
+        "bedrock:InvokeModelWithResponseStream"
+      ],
+      "Resource": "*"
+    }
+  ]
+}
